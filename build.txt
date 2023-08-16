@@ -1,0 +1,3 @@
+displayName = Vacuum Ore Bag
+author = andro951
+version = 0.1
