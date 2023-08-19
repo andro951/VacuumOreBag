@@ -1,4 +1,4 @@
-Vacuum Ore Bag is a mod that adds a bag that stores ores and similar items.
+﻿Vacuum Ore Bag is a mod that adds a bag that stores ores and similar items.
 It automatically picks up items if vacuum is toggled on, and is compatible with Magic Storage.
 
 This mod is built like an example mod to show off how to create a bag with androLib.
