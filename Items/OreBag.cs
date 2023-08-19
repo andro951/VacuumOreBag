@@ -26,11 +26,11 @@ namespace VacuumOreBag.Items
         public override void AddRecipes() {
 			//Set up your crafting recipe here.  If you would prefer to have your bag drop from an enemy or spawn somewhere,
 			//	feel free to ask me to add a feature, or you can do it like you would with any other ModItem.
-            Recipe recipie = CreateRecipe();
-			recipie.AddTile(TileID.WorkBenches);
-			recipie.AddIngredient(ItemID.TatteredCloth);
-			recipie.AddIngredient(ItemID.WhiteString);
-			recipie.Register();
+            Recipe recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemID.TatteredCloth);
+			recipe.AddIngredient(ItemID.WhiteString);
+			recipe.Register();
         }
 
 		public static int OreBagStorageID;//Set this when registering with androLib.  This is used to look up your storage and UI in the StorageManager.
