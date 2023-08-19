@@ -1,105 +1,53 @@
 ﻿using androLib.Common.Utility;
-using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Enums;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
-//using WeaponEnchantments.Common.Globals;
-//using WeaponEnchantments.Common;
-//using WeaponEnchantments.Common.Utility;
-//using WeaponEnchantments.Localization;
-//using WeaponEnchantments.UI;
-//using static WeaponEnchantments.Common.EnchantingRarity;
 using System.Linq;
-using androLib;
-using androLib.UI;
 using Microsoft.Xna.Framework;
 using androLib.Items;
-using VacuumOreBag;
 using androLib.Common.Globals;
 
 namespace VacuumOreBag.Items
 {
-	//[JITWhenModsEnabled(VacuumOreBag.androLibName)]
-	public  class OreBag : AndroModItem, ISoldByWitch
-    {
-        public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public virtual SellCondition SellCondition => SellCondition.Always;
-        public virtual float SellPriceModifier => 1f;
-        public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
-        //public override int CreativeItemSacrifice => 1;
-		public override string LocalizationTooltip => 
-            $"Automatically stores ores, bars, gems, and glass.\n" +
-            $"When in your inventory, the contents of the bag are available for crafting.\n" +
-            $"Right click to open the bag.";
-
-		public override string Artist => "andro951";
-        public override string Designer => "andro951";
-        public override void SetStaticDefaults() {
-            GetDefaults();
-
-            base.SetStaticDefaults();
-        }
-        private void GetDefaults() {
-            GetValues();
-        }
-        public override void SetDefaults() {
-            GetDefaults();
+	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
+	public  class OreBag : AndroModItem, ISoldByWitch {
+		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+		public override void SetDefaults() {
             Item.maxStack = 99;
             Item.value = 100000;
-            Item.width = 24;
+			Item.rare = ItemRarityID.Blue;
+
+			//Adjust these to the size of your bag's sprite.
+			Item.width = 24;
             Item.height = 24;
-            Item.rare = 1;
-        }
-        private void GetValues() {
-            
         }
         public override void AddRecipes() {
+			//Set up your crafting recipe here.  If you would prefer to have your bag drop from an enemy or spawn somewhere,
+			//	feel free to ask me to add a feature, or you can do it like you would with any other ModItem.
             Recipe recipie = CreateRecipe();
 			recipie.AddTile(TileID.WorkBenches);
 			recipie.AddIngredient(ItemID.TatteredCloth);
 			recipie.AddIngredient(ItemID.WhiteString);
 			recipie.Register();
         }
-		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
-        public override void RightClick(Player player) {
-            Item.stack++;
-			UseBag(player);
-		}
-		public override bool? UseItem(Player player) {//TODO: Make this generic on a globalitem using StirageManager.StorageItemTypes
-			if (Main.myPlayer == player.whoAmI && Main.netMode != NetmodeID.Server)
-                UseBag(player);
 
-            return null;
-		}
-        private void UseBag(Player player) {//TODO: Make this generic on a globalitem using StirageManager.StorageItemTypes
-			if (!StorageManager.TryGetBagUI(OreBagStorageID, out BagUI bagUI))
-				return;
+		public static int OreBagStorageID;//Set this when registering with androLib.  This is used to look up your storage and UI in the StorageManager.
 
-			if (StorageManager.BagUIs[OreBagStorageID].DisplayBagUI && Main.LocalPlayer.chest == -1) {
-				bagUI.CloseBag(true);
-			}
-			else {
-				bagUI.OpenBag();
-			}
-		}
-
-
-
-
-
-		public static int OreBagStorageID;//Automatically by the Register call from WEMod
-
+		//Register's the item with androLib.
+		//You can Directly call StorageManager.RegisterVacuumStorageClass() instead of using the Call()
+		//	if you are fine with androLib being a hard reference.
+		//All of the arguments after the first 4 are optional.  You can leave them as defaults.
+		//If you want to skip one to get to a later one, you can use null for the one you skip.
+		//Please use androLib.Common.Configs.ConfigValues.UIAlpha for your alpha colors for players who want to change that.
 		public static void RegisterWithAndroLib(Mod mod) {
 			if (VacuumOreBag.androLibEnabled) {
 				OreBagStorageID = (int)VacuumOreBag.AndroLib.Call(
 					"Register",//CallID
 					mod,//Mod
 					typeof(OreBag),//type 
-					(Item item) => OreBag.ItemAllowedToBeStored(item),//Is allowed function, Func<Item, bool>
+					(Item item) => ItemAllowedToBeStored(item),//Is allowed function, Func<Item, bool>
 					null,//Localization Key name.  Attempts to determine automatically by treating the type as a ModItem, or you can specify.
 					100,//StorageSize
 					true,//Can vacuum
@@ -120,6 +68,10 @@ namespace VacuumOreBag.Items
 			RareGems.Contains(item.type) || 
 			item.type == ItemID.Glass || 
 			item.type == ItemID.SandBlock;
+
+
+
+		#region ItemAllowedToBeStored methods.  You don't need these.  Use whatever logic you want to determine ItemAllowedToBeStored.
 
 		public static SortedSet<int> OreTypes {
 			get {
@@ -256,5 +208,23 @@ namespace VacuumOreBag.Items
 
 			return false;
 		}
+
+		#endregion
+
+
+		#region AndroModItem attributes that you don't need.
+
+		public virtual SellCondition SellCondition => SellCondition.Always;
+		public virtual float SellPriceModifier => 1f;
+		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
+		public override string LocalizationTooltip =>
+			$"Automatically stores ores, bars, gems, and glass.\n" +
+			$"When in your inventory, the contents of the bag are available for crafting.\n" +
+			$"Right click to open the bag.";
+
+		public override string Artist => "andro951";
+		public override string Designer => "andro951";
+
+		#endregion
 	}
 }
