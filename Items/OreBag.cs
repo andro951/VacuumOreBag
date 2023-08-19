@@ -194,6 +194,13 @@ namespace VacuumOreBag.Items
 					oreTypes.Add(i);
 			}
 
+			foreach (int type in ItemID.Sets.OreDropsFromSlime.Keys.Concat(ItemID.Sets.GeodeDrops.Keys)) {
+				if (type <= 0 || type >= ItemLoader.ItemCount)
+					continue;
+
+				oreTypes.Add(type);
+			}
+
 			modOreTileTypes = new();
 			BarTypes = new();
 			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
