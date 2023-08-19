@@ -20,8 +20,8 @@ namespace VacuumOreBag.Items
 			Item.rare = ItemRarityID.Blue;
 
 			//Adjust these to the size of your bag's sprite.
-			Item.width = 24;
-            Item.height = 24;
+			Item.width = 32;
+            Item.height = 32;
         }
         public override void AddRecipes() {
 			//Set up your crafting recipe here.  If you would prefer to have your bag drop from an enemy or spawn somewhere,
