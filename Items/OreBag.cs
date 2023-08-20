@@ -50,7 +50,7 @@ namespace VacuumOreBag.Items
 					(Item item) => ItemAllowedToBeStored(item),//Is allowed function, Func<Item, bool>
 					null,//Localization Key name.  Attempts to determine automatically by treating the type as a ModItem, or you can specify.
 					100,//StorageSize
-					true,//Can vacuum
+					true,//Can vacuum.  true means always vacuum if ItemAllowedToBeStored is true.  null means vacuum if same item exists in inventory.  false vacuum disabled.
 					() => new Color(25, 10, 3, androLib.Common.Configs.ConfigValues.UIAlpha),//Get color function. Func<using Microsoft.Xna.Framework.Color>
 					() => new Color(30, 10, 1, androLib.Common.Configs.ConfigValues.UIAlpha),//Get Scroll bar color function. Func<using Microsoft.Xna.Framework.Color>
 					() => new Color(50, 20, 6, androLib.Common.Configs.ConfigValues.UIAlpha),//Get Button hover color function. Func<using Microsoft.Xna.Framework.Color>
