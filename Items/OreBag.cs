@@ -15,7 +15,7 @@ namespace VacuumOreBag.Items
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults() {
-            Item.maxStack = 99;
+            Item.maxStack = 1;
             Item.value = 100000;
 			Item.rare = ItemRarityID.Blue;
 
