@@ -64,8 +64,8 @@ namespace VacuumOreBag.Items
 		public static bool ItemAllowedToBeStored(Item item) => 
 			OreTypes.Contains(item.type) || 
 			BarTypes.Contains(item.type) || 
-			CommonGems.Contains(item.type) || 
-			RareGems.Contains(item.type) || 
+			GemSets.CommonGems.Contains(item.type) ||
+			GemSets.RareGems.Contains(item.type) || 
 			item.type == ItemID.Glass || 
 			item.type == ItemID.SandBlock;
 
@@ -92,17 +92,6 @@ namespace VacuumOreBag.Items
 			}
 		}
 		private static SortedSet<int> modOreTileTypes = null;
-		public static SortedSet<int> CommonGems = new() {
-			ItemID.Topaz,
-			ItemID.Sapphire,
-			ItemID.Ruby,
-			ItemID.Emerald,
-			ItemID.Amethyst
-		};
-		public static SortedSet<int> RareGems = new() {
-			ItemID.Amber,
-			ItemID.Diamond
-		};
 		public static SortedSet<int> BarTypes = new();
 		private static void GetOreTypes() {
 			oreTypes = new() {
