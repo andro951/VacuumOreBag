@@ -1,6 +1,10 @@
-Items: {
-	OreBag: {
-		Tooltip: ""
-		DisplayName: ???
+Mods: {
+	VacuumOreBag: {
+		Items: {
+			OreBag: {
+				// Tooltip: ""
+				// DisplayName: Ore Bag
+			}
+		}
 	}
 }
