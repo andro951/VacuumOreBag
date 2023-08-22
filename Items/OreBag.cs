@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using androLib.Items;
 using androLib.Common.Globals;
+using static Terraria.ID.ContentSamples.CreativeHelper;
 
 namespace VacuumOreBag.Items
 {
@@ -72,6 +73,23 @@ namespace VacuumOreBag.Items
 
 
 		#region ItemAllowedToBeStored methods.  You don't need these.  Use whatever logic you want to determine ItemAllowedToBeStored.
+
+		public static SortedSet<int> OtherAllowedItems {
+			get {
+				if (otherAllowedItems == null)
+					GetOtherAllowedItems();
+
+				return otherAllowedItems;
+			}
+		}
+		private static SortedSet<int> otherAllowedItems = null;
+
+		private static void GetOtherAllowedItems() {
+			otherAllowedItems = new() {
+				ItemID.DesertFossil,
+				ItemID.FossilOre
+			};
+		}
 
 		public static SortedSet<int> OreTypes {
 			get {

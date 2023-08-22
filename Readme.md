@@ -5,12 +5,15 @@ Bags only require 1 simple ModItem file and a Mod.Load() call to make.  See Item
 **Attention Modders**
 This mod is built like an example mod to show off how to create a bag with androLib.
 See androLib for more information on how to create your own bags:
-	androLib Steam: 
+	androLib Steam: https://steamcommunity.com/sharedfiles/filedetails/?id=3021285778
 
 If you're interested in more vacuum bags, check out the Vacuum Bags mod:
 	Vacuum Bags Steam: 
 
 Feel free to reach out if you would like help creating a bag for your mod or if you find any issues with this mod.
+
+Portable Storage's Miners backpack sprite is used for the Ore Bag (with permission).  Created by anodomani
+	Portable Storage Steam: https://steamcommunity.com/sharedfiles/filedetails/?id=2840287284&searchtext=portable+storage
 
 Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
