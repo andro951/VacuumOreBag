@@ -62,13 +62,12 @@ namespace VacuumOreBag.Items
 			}
 		}
 
-		public static bool ItemAllowedToBeStored(Item item) => 
-			OreTypes.Contains(item.type) || 
-			BarTypes.Contains(item.type) || 
+		public static bool ItemAllowedToBeStored(Item item) =>
+			OreTypes.Contains(item.type) ||
+			BarTypes.Contains(item.type) ||
 			GemSets.CommonGems.Contains(item.type) ||
-			GemSets.RareGems.Contains(item.type) || 
-			item.type == ItemID.Glass || 
-			item.type == ItemID.SandBlock;
+			GemSets.RareGems.Contains(item.type) ||
+			OreBagWhitelist.Contains(item.type);
 
 
 
@@ -111,7 +110,15 @@ namespace VacuumOreBag.Items
 		}
 		private static SortedSet<int> modOreTileTypes = null;
 		public static SortedSet<int> BarTypes = new();
+
+		private static SortedSet<int> OreBagWhitelist;
 		private static void GetOreTypes() {
+			OreBagWhitelist = new() {
+				ItemID.SandBlock,
+				ItemID.Glass,
+				ItemID.CrystalShard,
+			};
+
 			oreTypes = new() {
 				ItemID.TinOre,
 				ItemID.CopperOre,
@@ -144,7 +151,13 @@ namespace VacuumOreBag.Items
 				"CalamityMod/AstralOre",
 				"CalamityMod/UelibloomOre",
 				"CalamityMod/AuricOre",
+				"CalamityMod/HallowedOre",
 				"ThoriumMod/ThoriumOre"
+			};
+
+			List<string> manualModBarNames = new() {
+				"CalamityMod/CosmiliteBar",
+				"CalamityMod/ShadowspecBar"
 			};
 
 			for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++) {
@@ -171,9 +184,23 @@ namespace VacuumOreBag.Items
 
 			SortedSet<int> potentialBars = new();
 			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+				Item item = ContentSamples.ItemsByType[i];
+				if (manualModBarNames.Contains(item.ModFullName())) {
+					BarTypes.Add(i);
+					continue;
+				}
+
 				string name = i.GetItemIDOrName();
 				if (name.Contains("Bar"))
 					potentialBars.Add(i);
+			}
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+				Item item = ContentSamples.ItemsByType[i];
+				if (item.createTile == TileID.MetalBars) {
+					BarTypes.Add(i);
+					continue;
+				}
 			}
 
 			for (int i = 0; i < Recipe.numRecipes; i++) {
@@ -201,6 +228,9 @@ namespace VacuumOreBag.Items
 			itemType = GenericGlobalTile.GetDroppedItem(tileType, forMining: true, ignoreError: true);
 			if (itemType <= 0)
 				return false;
+
+			if (TileID.Sets.Ore[itemType])
+				return true;
 
 			Item item = itemType.CSI();
 			ModTile modTile = TileLoader.GetTile(tileType);
