@@ -8,11 +8,13 @@ using Microsoft.Xna.Framework;
 using androLib.Items;
 using androLib.Common.Globals;
 using static Terraria.ID.ContentSamples.CreativeHelper;
+using System;
+using VacuumOreBag.Localization;
 
 namespace VacuumOreBag.Items
 {
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
-	public  class OreBag : AndroModItem, ISoldByWitch {
+	public class OreBag : AndroModItem, ISoldByWitch {
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults() {
@@ -183,7 +185,7 @@ namespace VacuumOreBag.Items
 			}
 
 			SortedSet<int> potentialBars = new();
-			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+			for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++) {
 				Item item = ContentSamples.ItemsByType[i];
 				if (manualModBarNames.Contains(item.ModFullName())) {
 					BarTypes.Add(i);
@@ -261,6 +263,8 @@ namespace VacuumOreBag.Items
 
 		public override string Artist => "andro951";
 		public override string Designer => "andro951";
+
+		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => VacuumOreBagLocalizationDataStaticMethods.AddLocalizationTooltip;
 
 		#endregion
 	}

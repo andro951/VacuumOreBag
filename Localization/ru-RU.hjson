@@ -1,9 +1,18 @@
+#
 Mods: {
 	VacuumOreBag: {
+		Config: {
+		}
+
 		Items: {
 			OreBag: {
-				// Tooltip: ""
-				// DisplayName: Ore Bag
+				DisplayName: Ore Bag
+				Tooltip:
+					'''
+					Automatically stores ores, bars, gems, and glass.
+					When in your inventory, the contents of the bag are available for crafting.
+					Right click to open the bag.
+					'''
 			}
 		}
 	}
