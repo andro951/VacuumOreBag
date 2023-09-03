@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: Мешок с рудой
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					Автоматически сохраняет руду, слитки, драгоценные камни и стекло.
+					Содержимое сумки, находящееся в вашем инвентаре, доступно для крафта.
+					Щелкните правой кнопкой мыши, чтобы открыть сумку.
 					'''
 			}
 		}

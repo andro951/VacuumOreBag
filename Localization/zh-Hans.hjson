@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: 矿石袋
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					自动储存矿石、锭、宝石和玻璃。
+					当你在库存中时，包里的东西可以用来制作。
+					右键点击打开袋子。
 					'''
 			}
 		}

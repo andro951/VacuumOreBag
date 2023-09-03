@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: Erzbeutel
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					Speichert automatisch Erze, Barren, Edelsteine und Glas.
+					Wenn Sie sich in Ihrem Inventar befinden, steht der Inhalt der Tasche zum Herstellen zur Verfügung.
+					Klicken Sie mit der rechten Maustaste, um die Tasche zu öffnen.
 					'''
 			}
 		}

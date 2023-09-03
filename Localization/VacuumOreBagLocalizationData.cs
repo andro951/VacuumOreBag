@@ -18,7 +18,7 @@ namespace VacuumOreBag.Localization
 	public class VacuumOreBagLocalizationData
 	{
 		public static void RegisterSDataPackage() {
-			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<VacuumOreBag>, () => AllData));
+			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<VacuumOreBag>, () => AllData, () => ChangedData, () => RenamedKeys, () => RenamedFullKeys, () => SameAsEnglish));
 		}
 
 		private static SortedDictionary<string, SData> allData;

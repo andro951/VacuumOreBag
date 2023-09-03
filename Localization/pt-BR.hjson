@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: Saco de minério
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					Armazena automaticamente minérios, barras, gemas e vidros.
+					Quando estiver em seu inventário, o conteúdo da sacola estará disponível para confecção.
+					Clique com o botão direito para abrir a bolsa.
 					'''
 			}
 		}

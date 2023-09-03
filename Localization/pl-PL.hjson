@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: Torba na rudę
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					Automatycznie przechowuje rudy, sztabki, klejnoty i szkło.
+					Gdy znajdziesz się w ekwipunku, zawartość torby będzie dostępna do wytworzenia.
+					Kliknij prawym przyciskiem myszy, aby otworzyć torbę.
 					'''
 			}
 		}

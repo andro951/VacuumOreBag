@@ -6,12 +6,12 @@ Mods: {
 
 		Items: {
 			OreBag: {
-				DisplayName: Ore Bag
+				DisplayName: Borsa del minerale
 				Tooltip:
 					'''
-					Automatically stores ores, bars, gems, and glass.
-					When in your inventory, the contents of the bag are available for crafting.
-					Right click to open the bag.
+					Memorizza automaticamente minerali, lingotti, gemme e vetro.
+					Quando sei nel tuo inventario, il contenuto della borsa è disponibile per la creazione.
+					Fare clic con il tasto destro per aprire la borsa.
 					'''
 			}
 		}
