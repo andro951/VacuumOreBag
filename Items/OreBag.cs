@@ -119,6 +119,8 @@ namespace VacuumOreBag.Items
 				ItemID.SandBlock,
 				ItemID.Glass,
 				ItemID.CrystalShard,
+				ItemID.DesertFossil,
+				ItemID.FossilOre
 			};
 
 			oreTypes = new() {
