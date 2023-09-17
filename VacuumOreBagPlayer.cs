@@ -20,5 +20,9 @@ namespace VacuumOreBag
 
 			return items;
 		}
+
+		public override void OnEnterWorld() {
+			Common.OldItemManager.ReplaceOldPlayerItems(Player);
+		}
 	}
 }

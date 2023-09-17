@@ -9,7 +9,8 @@ namespace VacuumOreBag
 {
 	public class VacuumOreBag : Mod {
 		//Only need these if you want androLib to be a soft dependency
-		public static string ModName = ModContent.GetInstance<VacuumOreBag>().Name;
+		public static Mod Instance = ModContent.GetInstance<VacuumOreBag>();
+		public static string ModName = Instance.Name;
 		public static OreBagServerConfig serverConfig = ModContent.GetInstance<OreBagServerConfig>();
 		//public static OreBagClientConfig clientConfig = ModContent.GetInstance<OreBagClientConfig>();
 		public const string androLibName = "androLib";
