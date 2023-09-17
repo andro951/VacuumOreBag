@@ -1,9 +1,6 @@
 #
 Mods: {
 	VacuumOreBag: {
-		Config: {
-		}
-
 		Items: {
 			OreBag: {
 				DisplayName: Saco de minério
@@ -15,5 +12,18 @@ Mods: {
 					'''
 			}
 		}
+
+		Configs: {
+			OreBagServerConfig: {
+				// DisplayName: Ore Bag Server Config
+
+				StartWithOreBag: {
+					// Label: Start With Ore Bag
+					// Tooltip: ""
+				}
+			}
+		}
+
+		// Config.BagOptions: Start With Ore Bag Header
 	}
 }

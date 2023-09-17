@@ -12,6 +12,8 @@ using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Common.Configs;
 using androLib.Localization;
+using static VacuumOreBag.Config.Config;
+using static VacuumOreBag.VacuumOreBag;
 
 namespace VacuumOreBag.Localization
 {
@@ -30,10 +32,12 @@ namespace VacuumOreBag.Localization
 							//Intentionally empty.  Filled automatically
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
-							//{ nameof(AndroClientConfig.PrintLocalizationLists), new(dict: new() {
-							//	{ L_ID3.Label.ToString(), "Log all translation lists" },
-							//	{ L_ID3.Tooltip.ToString(), "The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
-							//}) },
+							{ OreBagServerConfig.BagOptionsKey, new(children: new() {
+								{ nameof(serverConfig.StartWithOreBag), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(serverConfig.StartWithOreBag).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Disable to prevent players starting with the Ore Bag in their inventory." }
+								}) },
+							}) },
 							}, dict: new() {
 								//{ "DisplaySettings", "Display Settings" },
 								//{ "LoggingInformation", "Logging Information" }

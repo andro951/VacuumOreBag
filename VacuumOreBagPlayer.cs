@@ -13,9 +13,10 @@ namespace VacuumOreBag
 	public class VacuumOreBagPlayer : ModPlayer
 	{
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-			List<Item> items = new List<Item>() {
-				new(ModContent.ItemType<OreBag>())
-			};
+			List<Item> items = new();
+
+			if (VacuumOreBag.serverConfig.StartWithOreBag)
+				items.Add(new Item(ModContent.ItemType<OreBag>()));
 
 			return items;
 		}

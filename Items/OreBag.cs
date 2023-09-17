@@ -13,6 +13,7 @@ using VacuumOreBag.Localization;
 
 namespace VacuumOreBag.Items
 {
+	[Autoload(false)]//I manually load the Ore Bag by VacuumBags/Weapon Enchantments if either are enabled to sort it in with the other specialty bags.  You should not include the AddContent.
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
 	public class OreBag : AndroModItem, ISoldByWitch {
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
@@ -116,11 +117,17 @@ namespace VacuumOreBag.Items
 		private static SortedSet<int> OreBagWhitelist;
 		private static void GetOreTypes() {
 			OreBagWhitelist = new() {
-				ItemID.SandBlock,
-				ItemID.Glass,
 				ItemID.CrystalShard,
 				ItemID.DesertFossil,
-				ItemID.FossilOre
+				ItemID.FossilOre,
+				ItemID.Geode,
+				ItemID.GemTreeTopazSeed,
+				ItemID.GemTreeAmberSeed,
+				ItemID.GemTreeAmethystSeed,
+				ItemID.GemTreeDiamondSeed,
+				ItemID.GemTreeEmeraldSeed,
+				ItemID.GemTreeRubySeed,
+				ItemID.GemTreeSapphireSeed,
 			};
 
 			oreTypes = new() {
