@@ -1,6 +1,18 @@
 #
 Mods: {
 	VacuumOreBag: {
+		Configs: {
+			OreBagServerConfig: {
+				BagOptions: Opções de bolsa
+				DisplayName: Configuração do servidor
+
+				StartWithOreBag: {
+					Label: Comece com saco de minério
+					Tooltip: Desative para evitar que jogadores comecem com o Saco de Minério em seu inventário.
+				}
+			}
+		}
+
 		Items: {
 			OreBag: {
 				DisplayName: Saco de minério
@@ -12,18 +24,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs: {
-			OreBagServerConfig: {
-				// DisplayName: Ore Bag Server Config
-
-				StartWithOreBag: {
-					// Label: Start With Ore Bag
-					// Tooltip: ""
-				}
-			}
-		}
-
-		// Config.BagOptions: Start With Ore Bag Header
 	}
 }

@@ -1,6 +1,18 @@
 #
 Mods: {
 	VacuumOreBag: {
+		Configs: {
+			OreBagServerConfig: {
+				BagOptions: Bag Options
+				DisplayName: Server Config
+
+				StartWithOreBag: {
+					Label: Start With Ore Bag
+					Tooltip: Disable to prevent players starting with the Ore Bag in their inventory.
+				}
+			}
+		}
+
 		Items: {
 			OreBag: {
 				DisplayName: Ore Bag
@@ -12,18 +24,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs: {
-			OreBagServerConfig: {
-				DisplayName: Ore Bag Server Config
-
-				StartWithOreBag: {
-					Label: Start With Ore Bag
-					Tooltip: ""
-				}
-			}
-		}
-
-		Config.BagOptions: Start With Ore Bag Header
 	}
 }

@@ -1,6 +1,18 @@
 #
 Mods: {
 	VacuumOreBag: {
+		Configs: {
+			OreBagServerConfig: {
+				BagOptions: Opcje torby
+				DisplayName: Konfiguracja serwera
+
+				StartWithOreBag: {
+					Label: Zacznij od worka z rudą
+					Tooltip: Wyłącz, aby uniemożliwić graczom rozpoczynanie gry z workiem rudy w swoim ekwipunku.
+				}
+			}
+		}
+
 		Items: {
 			OreBag: {
 				DisplayName: Torba na rudę
@@ -12,18 +24,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs: {
-			OreBagServerConfig: {
-				// DisplayName: Ore Bag Server Config
-
-				StartWithOreBag: {
-					// Label: Start With Ore Bag
-					// Tooltip: ""
-				}
-			}
-		}
-
-		// Config.BagOptions: Start With Ore Bag Header
 	}
 }

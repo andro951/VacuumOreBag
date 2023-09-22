@@ -14,6 +14,7 @@ using androLib.Common.Configs;
 using androLib.Localization;
 using static VacuumOreBag.Config.Config;
 using static VacuumOreBag.VacuumOreBag;
+using static VacuumOreBag.Config.Config.OreBagServerConfig;
 
 namespace VacuumOreBag.Localization
 {
@@ -31,33 +32,17 @@ namespace VacuumOreBag.Localization
 						{ L_ID1.Items.ToString(), new(children: new() {
 							//Intentionally empty.  Filled automatically
 						}) },
-						{ L_ID1.Config.ToString(), new(children: new() {
-							{ OreBagServerConfig.BagOptionsKey, new(children: new() {
+						{ L_ID1.Configs.ToString(), new(children: new() {
+							{ nameof(OreBagServerConfig), new(children: new() {
 								{ nameof(serverConfig.StartWithOreBag), new(dict: new() {
 									{ L_ID3.Label.ToString(), nameof(serverConfig.StartWithOreBag).AddSpaces() },
 									{ L_ID3.Tooltip.ToString(), "Disable to prevent players starting with the Ore Bag in their inventory." }
 								}) },
+							},
+							dict: new() {
+								{ L_ID2.DisplayName.ToString(), "Server Config" },
+								{ BagOptionsKey, BagOptionsKey.AddSpaces() },
 							}) },
-							}, dict: new() {
-								//{ "DisplaySettings", "Display Settings" },
-								//{ "LoggingInformation", "Logging Information" }
-								/*,
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" },
-								{ "", "" }
-								*/
 						}) }
 					};
 

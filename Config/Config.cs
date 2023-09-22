@@ -1,4 +1,6 @@
-﻿using System;
+﻿using androLib.Common.Utility;
+using androLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,10 +14,11 @@ namespace VacuumOreBag.Config
 	{
 		public class OreBagServerConfig : ModConfig
 		{
+			public const string ServerConfigName = "OreBagServerConfig";
 			public override ConfigScope Mode => ConfigScope.ServerSide;
 
 			public const string BagOptionsKey = "BagOptions";
-			[Header($"$Mods.VacuumOreBag.Config.{BagOptionsKey}")]
+			[Header($"$Mods.{VacuumOreBag.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{BagOptionsKey}")]
 
 			[DefaultValue(true)]
 			public bool StartWithOreBag;

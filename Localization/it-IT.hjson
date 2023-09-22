@@ -1,6 +1,18 @@
 #
 Mods: {
 	VacuumOreBag: {
+		Configs: {
+			OreBagServerConfig: {
+				BagOptions: Opzioni borsa
+				DisplayName: Configurazione server
+
+				StartWithOreBag: {
+					Label: Inizia con il sacchetto del minerale
+					Tooltip: Disabilita per impedire ai giocatori di iniziare con il Borsa del minerale nel loro inventario.
+				}
+			}
+		}
+
 		Items: {
 			OreBag: {
 				DisplayName: Borsa del minerale
@@ -12,18 +24,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs: {
-			OreBagServerConfig: {
-				// DisplayName: Ore Bag Server Config
-
-				StartWithOreBag: {
-					// Label: Start With Ore Bag
-					// Tooltip: ""
-				}
-			}
-		}
-
-		// Config.BagOptions: Start With Ore Bag Header
 	}
 }

@@ -1,6 +1,18 @@
 #
 Mods: {
 	VacuumOreBag: {
+		Configs: {
+			OreBagServerConfig: {
+				BagOptions: 包袋选项
+				DisplayName: 服务器配置
+
+				StartWithOreBag: {
+					Label: 从矿石袋开始
+					Tooltip: 禁用以防止玩家从库存中的矿石袋开始。
+				}
+			}
+		}
+
 		Items: {
 			OreBag: {
 				DisplayName: 矿石袋
@@ -12,18 +24,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs: {
-			OreBagServerConfig: {
-				// DisplayName: Ore Bag Server Config
-
-				StartWithOreBag: {
-					// Label: Start With Ore Bag
-					// Tooltip: ""
-				}
-			}
-		}
-
-		// Config.BagOptions: Start With Ore Bag Header
 	}
 }
