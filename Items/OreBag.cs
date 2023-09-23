@@ -65,14 +65,39 @@ namespace VacuumOreBag.Items
 			}
 		}
 
-		public static bool ItemAllowedToBeStored(Item item) =>
-			OreTypes.Contains(item.type) ||
-			BarTypes.Contains(item.type) ||
-			GemSets.CommonGems.Contains(item.type) ||
-			GemSets.RareGems.Contains(item.type) ||
-			OreBagWhitelist.Contains(item.type);
+		public static bool ItemAllowedToBeStored(Item item) => AllowedList.Contains(item.type);
 
+		public static SortedSet<int> AllowedList {
+			get {
+				if (allowedList == null)
+					GetAllowedList();
 
+				return allowedList;
+			}
+
+			set => allowedList = value;
+		}
+		public static SortedSet<int> allowedList = null;
+		private static void GetAllowedList() {
+			allowedList = new() {
+				ItemID.CrystalShard,
+				ItemID.DesertFossil,
+				ItemID.FossilOre,
+				ItemID.Geode,
+				ItemID.GemTreeTopazSeed,
+				ItemID.GemTreeAmberSeed,
+				ItemID.GemTreeAmethystSeed,
+				ItemID.GemTreeDiamondSeed,
+				ItemID.GemTreeEmeraldSeed,
+				ItemID.GemTreeRubySeed,
+				ItemID.GemTreeSapphireSeed,
+			};
+
+			allowedList.UnionWith(OreTypes);
+			allowedList.UnionWith(BarTypes);
+			allowedList.UnionWith(GemSets.CommonGems);
+			allowedList.UnionWith(GemSets.RareGems);
+		}
 
 		#region ItemAllowedToBeStored methods.  You don't need these.  Use whatever logic you want to determine ItemAllowedToBeStored.
 
@@ -113,23 +138,7 @@ namespace VacuumOreBag.Items
 		}
 		private static SortedSet<int> modOreTileTypes = null;
 		public static SortedSet<int> BarTypes = new();
-
-		private static SortedSet<int> OreBagWhitelist;
 		private static void GetOreTypes() {
-			OreBagWhitelist = new() {
-				ItemID.CrystalShard,
-				ItemID.DesertFossil,
-				ItemID.FossilOre,
-				ItemID.Geode,
-				ItemID.GemTreeTopazSeed,
-				ItemID.GemTreeAmberSeed,
-				ItemID.GemTreeAmethystSeed,
-				ItemID.GemTreeDiamondSeed,
-				ItemID.GemTreeEmeraldSeed,
-				ItemID.GemTreeRubySeed,
-				ItemID.GemTreeSapphireSeed,
-			};
-
 			oreTypes = new() {
 				ItemID.TinOre,
 				ItemID.CopperOre,
@@ -168,7 +177,8 @@ namespace VacuumOreBag.Items
 
 			List<string> manualModBarNames = new() {
 				"CalamityMod/CosmiliteBar",
-				"CalamityMod/ShadowspecBar"
+				"CalamityMod/ShadowspecBar",
+				"ThoriumMod/SandstoneIngot"
 			};
 
 			for (int i = ItemID.Count; i < ItemLoader.ItemCount; i++) {
