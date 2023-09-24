@@ -15,7 +15,7 @@ namespace VacuumOreBag.Items
 {
 	[Autoload(false)]//I manually load the Ore Bag by VacuumBags/Weapon Enchantments if either are enabled to sort it in with the other specialty bags.  You should not include the AddContent.
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
-	public class OreBag : AndroModItem, ISoldByWitch {
+	public class OreBag : AndroModItem, ISoldByWitch, INeedsSetUpAllowedList {
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults() {
@@ -37,7 +37,7 @@ namespace VacuumOreBag.Items
 			recipe.Register();
         }
 
-		public static int OreBagStorageID;//Set this when registering with androLib.  This is used to look up your storage and UI in the StorageManager.
+		public static int BagStorageID;//Set this when registering with androLib.  This is used to look up your storage and UI in the StorageManager.
 
 		//Register's the item with androLib.
 		//You can Directly call StorageManager.RegisterVacuumStorageClass() instead of using the Call()
@@ -47,7 +47,7 @@ namespace VacuumOreBag.Items
 		//Please use androLib.Common.Configs.ConfigValues.UIAlpha for your alpha colors for players who want to change that.
 		public static void RegisterWithAndroLib(Mod mod) {
 			if (VacuumOreBag.androLibEnabled) {
-				OreBagStorageID = (int)VacuumOreBag.AndroLib.Call(
+				BagStorageID = (int)VacuumOreBag.AndroLib.Call(
 					"Register",//CallID
 					mod,//Mod
 					typeof(OreBag),//type 
@@ -65,39 +65,7 @@ namespace VacuumOreBag.Items
 			}
 		}
 
-		public static bool ItemAllowedToBeStored(Item item) => AllowedList.Contains(item.type);
-
-		public static SortedSet<int> AllowedList {
-			get {
-				if (allowedList == null)
-					GetAllowedList();
-
-				return allowedList;
-			}
-
-			set => allowedList = value;
-		}
-		public static SortedSet<int> allowedList = null;
-		private static void GetAllowedList() {
-			allowedList = new() {
-				ItemID.CrystalShard,
-				ItemID.DesertFossil,
-				ItemID.FossilOre,
-				ItemID.Geode,
-				ItemID.GemTreeTopazSeed,
-				ItemID.GemTreeAmberSeed,
-				ItemID.GemTreeAmethystSeed,
-				ItemID.GemTreeDiamondSeed,
-				ItemID.GemTreeEmeraldSeed,
-				ItemID.GemTreeRubySeed,
-				ItemID.GemTreeSapphireSeed,
-			};
-
-			allowedList.UnionWith(OreTypes);
-			allowedList.UnionWith(BarTypes);
-			allowedList.UnionWith(GemSets.CommonGems);
-			allowedList.UnionWith(GemSets.RareGems);
-		}
+		public static bool ItemAllowedToBeStored(Item item) => AllowedItems.Contains(item.type);
 
 		#region ItemAllowedToBeStored methods.  You don't need these.  Use whatever logic you want to determine ItemAllowedToBeStored.
 
@@ -110,14 +78,12 @@ namespace VacuumOreBag.Items
 			}
 		}
 		private static SortedSet<int> otherAllowedItems = null;
-
 		private static void GetOtherAllowedItems() {
 			otherAllowedItems = new() {
 				ItemID.DesertFossil,
 				ItemID.FossilOre
 			};
 		}
-
 		public static SortedSet<int> OreTypes {
 			get {
 				if (oreTypes == null)
@@ -269,6 +235,80 @@ namespace VacuumOreBag.Items
 
 		#endregion
 
+		#region INeedsSetUpAllowedList
+
+		public static SortedSet<int> AllowedItems => AllowedItemsManager.AllowedItems;
+		public static AllowedItemsManager AllowedItemsManager = new(ModContent.ItemType<OreBag>, () => BagStorageID, DevCheck, DevWhiteList, DevModWhiteList, DevBlackList, DevModBlackList, ItemGroups, EndWords, SearchWords);
+		public AllowedItemsManager GetAllowedItemsManager => AllowedItemsManager;
+		protected static bool? DevCheck(ItemSetInfo info, SortedSet<ItemGroup> itemGroups, SortedSet<string> endWords, SortedSet<string> searchWords) {
+			return null;
+		}
+		protected static SortedSet<int> DevWhiteList() {
+			SortedSet<int> devWhiteList = new() {
+				ItemID.CrystalShard,
+				ItemID.DesertFossil,
+				ItemID.FossilOre,
+				ItemID.Geode,
+				ItemID.GemTreeTopazSeed,
+				ItemID.GemTreeAmberSeed,
+				ItemID.GemTreeAmethystSeed,
+				ItemID.GemTreeDiamondSeed,
+				ItemID.GemTreeEmeraldSeed,
+				ItemID.GemTreeRubySeed,
+				ItemID.GemTreeSapphireSeed,
+			};
+
+			devWhiteList.UnionWith(OreTypes);
+			devWhiteList.UnionWith(BarTypes);
+			devWhiteList.UnionWith(GemSets.CommonGems);
+			devWhiteList.UnionWith(GemSets.RareGems);
+
+			return devWhiteList;
+		}
+		protected static SortedSet<string> DevModWhiteList() {
+			SortedSet<string> devModWhiteList = new() {
+
+			};
+
+			return devModWhiteList;
+		}
+		protected static SortedSet<int> DevBlackList() {
+			SortedSet<int> devBlackList = new() {
+
+			};
+
+			return devBlackList;
+		}
+		protected static SortedSet<string> DevModBlackList() {
+			SortedSet<string> devModBlackList = new() {
+
+			};
+
+			return devModBlackList;
+		}
+		protected static SortedSet<ItemGroup> ItemGroups() {
+			SortedSet<ItemGroup> itemGroups = new() {
+
+			};
+
+			return itemGroups;
+		}
+		protected static SortedSet<string> EndWords() {
+			SortedSet<string> endWords = new() {
+
+			};
+
+			return endWords;
+		}
+		protected static SortedSet<string> SearchWords() {
+			SortedSet<string> searchWords = new() {
+
+			};
+
+			return searchWords;
+		}
+
+		#endregion
 
 		#region AndroModItem attributes that you don't need.
 

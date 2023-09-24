@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader.Config;
+using Terraria;
 
 namespace VacuumOreBag.Config
 {
@@ -23,5 +24,10 @@ namespace VacuumOreBag.Config
 			[DefaultValue(true)]
 			public bool StartWithOreBag;
 		}
+
+		//public class OreBagClientConfig : ModConfig {
+		//	public const string ClientConfigName = "OreBagClientConfig";
+		//	public override ConfigScope Mode => ConfigScope.ClientSide;
+		//}
 	}
 }
