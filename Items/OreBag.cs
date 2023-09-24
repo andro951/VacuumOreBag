@@ -60,7 +60,8 @@ namespace VacuumOreBag.Items
 					() => new Color(50, 20, 6, androLib.Common.Configs.ConfigValues.UIAlpha),//Get Button hover color function. Func<using Microsoft.Xna.Framework.Color>
 					() => ModContent.ItemType<OreBag>(),//Get ModItem type
 					80,//UI Left
-					675//UI Top
+					675,//UI Top
+					() => AllowedItems//Func<SortedSet<int>> that returns a list of the items allowed in the bag if you want players to be able to update the list in game. (whitelist/blacklist)
 				);
 			}
 		}
