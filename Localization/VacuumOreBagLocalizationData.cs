@@ -15,12 +15,17 @@ using androLib.Localization;
 using static VacuumOreBag.Config.Config;
 using static VacuumOreBag.VacuumOreBag;
 using static VacuumOreBag.Config.Config.OreBagServerConfig;
+using Terraria.ID;
+using Terraria;
 
 namespace VacuumOreBag.Localization
 {
 	public class VacuumOreBagLocalizationData
 	{
 		public static void RegisterSDataPackage() {
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
 			AndroLogModSystem.RegisterModLocalizationSDataPackage(new(ModContent.GetInstance<VacuumOreBag>, () => AllData, () => ChangedData, () => RenamedKeys, () => RenamedFullKeys, () => SameAsEnglish));
 		}
 

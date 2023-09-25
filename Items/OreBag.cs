@@ -46,6 +46,9 @@ namespace VacuumOreBag.Items
 		//If you want to skip one to get to a later one, you can use null for the one you skip.
 		//Please use androLib.Common.Configs.ConfigValues.UIAlpha for your alpha colors for players who want to change that.
 		public static void RegisterWithAndroLib(Mod mod) {
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
 			if (VacuumOreBag.androLibEnabled) {
 				BagStorageID = (int)VacuumOreBag.AndroLib.Call(
 					"Register",//CallID
