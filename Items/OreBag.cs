@@ -15,7 +15,7 @@ namespace VacuumOreBag.Items
 {
 	[Autoload(false)]//I manually load the Ore Bag by VacuumBags/Weapon Enchantments if either are enabled to sort it in with the other specialty bags.  You should not include the AddContent.
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
-	public class OreBag : AndroModItem, ISoldByWitch, INeedsSetUpAllowedList {
+	public class OreBag : AndroModItem, ISoldByNPC, INeedsSetUpAllowedList {
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults() {
@@ -316,6 +316,7 @@ namespace VacuumOreBag.Items
 
 		#region AndroModItem attributes that you don't need.
 
+		public Func<int> SoldByNPCNetID => null;
 		public virtual SellCondition SellCondition => SellCondition.Always;
 		public virtual float SellPriceModifier => 1f;
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
@@ -324,7 +325,7 @@ namespace VacuumOreBag.Items
 			$"When in your inventory, the contents of the bag are available for crafting.\n" +
 			$"Right click to open the bag.";
 
-		public override string Artist => "andro951";
+		public override string Artist => "anodomani";
 		public override string Designer => "andro951";
 
 		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => VacuumOreBagLocalizationDataStaticMethods.AddLocalizationTooltip;
