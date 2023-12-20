@@ -64,7 +64,7 @@ namespace VacuumOreBag.Items
 					() => ModContent.ItemType<OreBag>(),//Get ModItem type
 					80,//UI Left
 					675,//UI Top
-					() => AllowedItems//Func<SortedSet<int>> that returns a list of the items allowed in the bag if you want players to be able to update the list in game. (whitelist/blacklist)
+					(int item, bool add) => UpdateAllowedList(item, add)//Called when a player whitelists or blacklists an item.  Use this to update your allowedlists that feed into your ItemAllowedToBeStored() function.
 				);
 			}
 		}
@@ -240,7 +240,14 @@ namespace VacuumOreBag.Items
 		#endregion
 
 		#region INeedsSetUpAllowedList
-
+		private static void UpdateAllowedList(int item, bool add) {
+			if (add) {
+				AllowedItems.Add(item);
+			}
+			else {
+				AllowedItems.Remove(item);
+			}
+		}
 		public static SortedSet<int> AllowedItems => AllowedItemsManager.AllowedItems;
 		public static AllowedItemsManager AllowedItemsManager = new(ModContent.ItemType<OreBag>, () => BagStorageID, DevCheck, DevWhiteList, DevModWhiteList, DevBlackList, DevModBlackList, ItemGroups, EndWords, SearchWords);
 		public AllowedItemsManager GetAllowedItemsManager => AllowedItemsManager;
