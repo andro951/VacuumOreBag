@@ -25,7 +25,7 @@ namespace VacuumOreBag
 				AddContent(new OreBag());
 
 			//Very important to register with androLib in the Load method before anything has been setup.
-			OreBag.RegisterWithAndroLib(this);
+			OreBag.Instance.RegisterWithAndroLib(this);
 
 
 			//Only for localization, manage localization however you want.  Trying to use my system won't work.

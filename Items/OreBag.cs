@@ -10,12 +10,23 @@ using androLib.Common.Globals;
 using static Terraria.ID.ContentSamples.CreativeHelper;
 using System;
 using VacuumOreBag.Localization;
+using VacuumBags.Items;
 
 namespace VacuumOreBag.Items
 {
 	[Autoload(false)]//I manually load the Ore Bag by VacuumBags/Weapon Enchantments if either are enabled to sort it in with the other specialty bags.  You should not include the AddContent.
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
-	public class OreBag : AndroModItem, ISoldByNPC, INeedsSetUpAllowedList {
+	public class OreBag : AllowedListBagModItem, ISoldByNPC {
+		public static BagModItem Instance {
+			get {
+				if (instance == null)
+					instance = new OreBag();
+
+				return instance;
+			}
+		}
+		private static BagModItem instance;
+
 		//I store textures in a Sprites folder in the Item folder.  If you store them the normal way, you don't need this.
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults() {
@@ -37,7 +48,9 @@ namespace VacuumOreBag.Items
 			recipe.Register();
         }
 
-		public static int BagStorageID;//Set this when registering with androLib.  This is used to look up your storage and UI in the StorageManager.
+		public override Color PanelColor => new Color(25, 10, 3, androLib.Common.Configs.ConfigValues.UIAlpha);
+		public override Color ScrollBarColor => new Color(30, 10, 1, androLib.Common.Configs.ConfigValues.UIAlpha);
+		public override Color ButtonHoverColor => new Color(50, 20, 6, androLib.Common.Configs.ConfigValues.UIAlpha);
 
 		//Register's the item with androLib.
 		//You can Directly call StorageManager.RegisterVacuumStorageClass() instead of using the Call()
@@ -45,7 +58,7 @@ namespace VacuumOreBag.Items
 		//All of the arguments after the first 4 are optional.  You can leave them as defaults.
 		//If you want to skip one to get to a later one, you can use null for the one you skip.
 		//Please use androLib.Common.Configs.ConfigValues.UIAlpha for your alpha colors for players who want to change that.
-		public static void RegisterWithAndroLib(Mod mod) {
+		new public void RegisterWithAndroLib(Mod mod) {
 			if (Main.netMode == NetmodeID.Server)
 				return;
 
@@ -53,14 +66,14 @@ namespace VacuumOreBag.Items
 				BagStorageID = (int)VacuumOreBag.AndroLib.Call(
 					"Register",//CallID
 					mod,//Mod
-					typeof(OreBag),//type 
+					GetType(),//type
 					(Item item) => ItemAllowedToBeStored(item),//Is allowed function, Func<Item, bool>
 					null,//Localization Key name.  Attempts to determine automatically by treating the type as a ModItem, or you can specify.
 					-100,//StorageSize.  Positive values force a bag to be a specific size.  Negative values means that the size can be changed by a client config setting by the player.  
 					true,//Can vacuum.  true means always vacuum if ItemAllowedToBeStored is true.  null means vacuum if same item exists in inventory.  false vacuum disabled.
-					() => new Color(25, 10, 3, androLib.Common.Configs.ConfigValues.UIAlpha),//Get color function. Func<using Microsoft.Xna.Framework.Color>
-					() => new Color(30, 10, 1, androLib.Common.Configs.ConfigValues.UIAlpha),//Get Scroll bar color function. Func<using Microsoft.Xna.Framework.Color>
-					() => new Color(50, 20, 6, androLib.Common.Configs.ConfigValues.UIAlpha),//Get Button hover color function. Func<using Microsoft.Xna.Framework.Color>
+					() => PanelColor,//Get color function. Func<using Microsoft.Xna.Framework.Color>
+					() => ScrollBarColor,//Get Scroll bar color function. Func<using Microsoft.Xna.Framework.Color>
+					() => ButtonHoverColor,//Get Button hover color function. Func<using Microsoft.Xna.Framework.Color>
 					() => ModContent.ItemType<OreBag>(),//Get ModItem type
 					80,//UI Left
 					675,//UI Top
@@ -69,7 +82,6 @@ namespace VacuumOreBag.Items
 			}
 		}
 
-		public static bool ItemAllowedToBeStored(Item item) => AllowedItems.Contains(item.type);
 
 		#region ItemAllowedToBeStored methods.  You don't need these.  Use whatever logic you want to determine ItemAllowedToBeStored.
 
@@ -240,21 +252,9 @@ namespace VacuumOreBag.Items
 		#endregion
 
 		#region INeedsSetUpAllowedList
-		private static void UpdateAllowedList(int item, bool add) {
-			if (add) {
-				AllowedItems.Add(item);
-			}
-			else {
-				AllowedItems.Remove(item);
-			}
-		}
-		public static SortedSet<int> AllowedItems => AllowedItemsManager.AllowedItems;
-		public static AllowedItemsManager AllowedItemsManager = new(ModContent.ItemType<OreBag>, () => BagStorageID, DevCheck, DevWhiteList, DevModWhiteList, DevBlackList, DevModBlackList, ItemGroups, EndWords, SearchWords);
-		public AllowedItemsManager GetAllowedItemsManager => AllowedItemsManager;
-		protected static bool? DevCheck(ItemSetInfo info, SortedSet<ItemGroup> itemGroups, SortedSet<string> endWords, SortedSet<string> searchWords) {
-			return null;
-		}
-		protected static SortedSet<int> DevWhiteList() {
+
+		public override int GetBagType() => ModContent.ItemType<OreBag>();
+		public override SortedSet<int> DevWhiteList() {
 			SortedSet<int> devWhiteList = new() {
 				ItemID.CrystalShard,
 				ItemID.DesertFossil,
@@ -276,56 +276,14 @@ namespace VacuumOreBag.Items
 
 			return devWhiteList;
 		}
-		protected static SortedSet<string> DevModWhiteList() {
-			SortedSet<string> devModWhiteList = new() {
-
-			};
-
-			return devModWhiteList;
-		}
-		protected static SortedSet<int> DevBlackList() {
-			SortedSet<int> devBlackList = new() {
-
-			};
-
-			return devBlackList;
-		}
-		protected static SortedSet<string> DevModBlackList() {
-			SortedSet<string> devModBlackList = new() {
-
-			};
-
-			return devModBlackList;
-		}
-		protected static SortedSet<ItemGroup> ItemGroups() {
-			SortedSet<ItemGroup> itemGroups = new() {
-
-			};
-
-			return itemGroups;
-		}
-		protected static SortedSet<string> EndWords() {
-			SortedSet<string> endWords = new() {
-
-			};
-
-			return endWords;
-		}
-		protected static SortedSet<string> SearchWords() {
-			SortedSet<string> searchWords = new() {
-
-			};
-
-			return searchWords;
-		}
 
 		#endregion
 
 		#region AndroModItem attributes that you don't need.
 
-		public Func<int> SoldByNPCNetID => null;
-		public virtual SellCondition SellCondition => SellCondition.Always;
-		public virtual float SellPriceModifier => 1f;
+		public override Func<int> SoldByNPCNetID => null;
+		public override SellCondition SellCondition => SellCondition.Always;
+		public override float SellPriceModifier => 1f;
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
 		public override string LocalizationTooltip =>
 			$"Automatically stores ores, bars, gems, and glass.\n" +
