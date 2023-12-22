@@ -16,7 +16,7 @@ namespace VacuumOreBag.Items
 {
 	[Autoload(false)]//I manually load the Ore Bag by VacuumBags/Weapon Enchantments if either are enabled to sort it in with the other specialty bags.  You should not include the AddContent.
 	//Your bag does not need to inherit from AndroModItem or ISoldByWitch.  You can just inherit from ModItem.
-	public class OreBag : AllowedListBagModItem, ISoldByNPC {
+	public class OreBag : AllowedListBagModItem {
 		public static BagModItem Instance {
 			get {
 				if (instance == null)
