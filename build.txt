@@ -2,4 +2,4 @@ displayName = Vacuum Ore Bag
 author = andro951
 version = 1.0.2.1
 includeSource = true
-modReferences = androLib
+modReferences = androLib@1.0.7.0
